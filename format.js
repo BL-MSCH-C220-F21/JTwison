@@ -54,7 +54,8 @@ function twineToJSON(format) {
 		p = result.passages[i];
 		for (j in p["links"]){
 			l = p["links"][j];
-			l["selection"] = parseInt(j) + 1;
+			temp = parseInt(j) + 1
+			l["selection"] = temp.toString();
 			n = l["newPassage"];
 			for (k in result.passages){
 				s = result.passages[k];
