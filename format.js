@@ -1,5 +1,5 @@
 window.storyFormat({
-	"name": "JTwison",
+	"name": "JTwineToJSON",
 	"version": "0.1.0",
 	"author": "Jason Francis",
 	"description": "Export your Twine 2 story as a JSON document, based on Twison",
@@ -11,9 +11,9 @@ window.storyFormat({
 		<title>Harlowe To JSON</title>
         <script type='text/javascript'>
             /**
-* Twine To JSON
+* Twine To JSON—Modified by Jason Francis for use in BL-MSCH-C220
 *
-* Copyright (c) 2020 Jonathan Schoonhoven
+* Copyright (c) 2022 Jason Francis
 *
 * Permission is hereby granted, free of charge, to any person obtaining a copy of this software and
 * associated documentation files (the 'Software'), to deal in the Software without restriction,
@@ -43,10 +43,7 @@ function twineToJSON(format) {
     const storyMeta = getElementAttributes(storyElement);
     const result = {
         story: storyMeta.name,
-        uuid: storyMeta.ifid,
-        schemaName: storyMeta.format,
-        schemaVersion: storyMeta['format-version'],
-        createdAtMs: Date.now(),
+		startnode: storyMeta.startnode		
     };
     validate(format);
     const passageElements = Array.from(storyElement.getElementsByTagName(PASSAGE_TAG_NAME));

@@ -4,9 +4,9 @@
 		<title>Harlowe To JSON</title>
         <script type='text/javascript'>
             /**
-* Twine To JSON
+* Twine To JSON—Modified by Jason Francis for use in BL-MSCH-C220
 *
-* Copyright (c) 2020 Jonathan Schoonhoven
+* Copyright (c) 2022 Jason Francis
 *
 * Permission is hereby granted, free of charge, to any person obtaining a copy of this software and
 * associated documentation files (the 'Software'), to deal in the Software without restriction,
@@ -36,10 +36,7 @@ function twineToJSON(format) {
     const storyMeta = getElementAttributes(storyElement);
     const result = {
         story: storyMeta.name,
-        uuid: storyMeta.ifid,
-        schemaName: storyMeta.format,
-        schemaVersion: storyMeta['format-version'],
-        createdAtMs: Date.now(),
+		startnode: storyMeta.startnode
     };
     validate(format);
     const passageElements = Array.from(storyElement.getElementsByTagName(PASSAGE_TAG_NAME));
@@ -50,7 +47,7 @@ function twineToJSON(format) {
 		p = result.passages[i];
 		for (j in p["links"]){
 			l = p["links"][j];
-			l["selection"] = parseInt(j) + 1;
+			l["option"] = parseInt(j) + 1;
 			n = l["newPassage"];
 			for (k in result.passages){
 				s = result.passages[k];
@@ -125,13 +122,13 @@ function extractLinksAtIndex(passageText, currentIndex) {
         const rightSplit = link.split('->', 2);
         const original = passageText.substring(currentIndex, currentIndex + link.length + 4);
         if (leftSplit.length === 2) {
-            return { original: original, label: leftSplit[1].trim(), newPassage: leftSplit[0].trim(), pid: "", selection: "" };
+            return { original: original, label: leftSplit[1].trim(), newPassage: leftSplit[0].trim(), pid: "", option: "" };
         }
         else if (rightSplit.length === 2) {
-            return { original: original, label: rightSplit[0].trim(), newPassage: rightSplit[1].trim(), pid: "", selection: "" };
+            return { original: original, label: rightSplit[0].trim(), newPassage: rightSplit[1].trim(), pid: "", option: "" };
         }
         else {
-            return { original: original, label: link.trim(), newPassage: link.trim(), pid: "", selection: "" };
+            return { original: original, label: link.trim(), newPassage: link.trim(), pid: "", option: "" };
         }
     }
 }
